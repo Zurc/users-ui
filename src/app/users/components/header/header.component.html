@@ -1,0 +1,7 @@
+<header class="Header">
+    <div class="form-group">
+        <label class='form-label' for='newUser'>Add New User</label>
+        <input #newUser id='newUser' class='form-control' (keyup.enter)="addUser(newUser.value); newUser.value=''">
+    </div>
+    <button class='btn' (click)="addUser(newUser.value); newUser.value=''">Add</button>
+</header>

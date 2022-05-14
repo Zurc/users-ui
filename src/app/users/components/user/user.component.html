@@ -1,0 +1,20 @@
+<li class='UserList'>
+    <ng-container *ngIf="userProps.isEditing; else noEditing">
+        <input type="text" class='form-control' [value]='userProps.name' (change)='onUserChange($event)'
+            (keyup.enter)='onSave(userProps)' autofocus>
+
+        <div class="UserList__right-col">
+            <button class='btn' (click)="onSave(userProps)">Save</button>
+        </div>
+    </ng-container>
+
+    <ng-template #noEditing>
+        <div class='UserList__left-col'>{{ userProps.name }}</div>
+
+        <div class="UserList__right-col">
+            <button class='btn' (click)="onEdit(userProps.id)">Edit</button>
+            <button class='btn' (click)="onDelete(userProps.id)">Delete</button>
+        </div>
+    </ng-template>
+
+</li>
