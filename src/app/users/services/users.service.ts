@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
-import { FilterEnum } from 'src/app/users/types/filter.enum';
-import { UserInterface } from 'src/app/users/types/user.interface';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, map } from "rxjs";
+import { FilterEnum } from "src/app/users/types/filter.enum";
+import { UserInterface } from "src/app/users/types/user.interface";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class UsersService {
-
   users$ = new BehaviorSubject<UserInterface[]>([]);
   filter$ = new BehaviorSubject<FilterEnum>(FilterEnum.editAll);
 
@@ -15,23 +14,22 @@ export class UsersService {
     const newUser: UserInterface = {
       name,
       isEditing: false,
-      id: Math.random().toString(16)
-    }
+      id: Math.random().toString(16),
+    };
     const updatedUsers = [...this.users$.getValue(), newUser];
     this.users$.next(updatedUsers);
   }
 
   editAll() {
     const editedUsers = this.users$.getValue().map((user) => {
-
       return {
         ...user,
-        isEditing: true
-      }
-    })
+        isEditing: true,
+      };
+    });
     console.log(editedUsers);
-    
-    this.users$.next(editedUsers)
+
+    this.users$.next(editedUsers);
   }
 
   deleteAll() {
@@ -39,31 +37,35 @@ export class UsersService {
   }
 
   deleteUserById(id: string) {
-    const newUsers = this.users$.getValue().filter(user => user.id !== id);
+    const newUsers = this.users$.getValue().filter((user) => user.id !== id);
     this.users$.next(newUsers);
   }
 
   editUserById(id: string) {
-    const newUserIndex = this.users$.getValue().findIndex(user => user.id === id);
-    
-    if(newUserIndex > -1) {
+    const newUserIndex = this.users$
+      .getValue()
+      .findIndex((user) => user.id === id);
+
+    if (newUserIndex > -1) {
       const changedUser = {
         ...this.users$.getValue()[newUserIndex],
-        isEditing: true
-      }
+        isEditing: true,
+      };
       const newUsers = [
         ...this.users$.getValue().slice(0, newUserIndex),
         changedUser,
         ...this.users$.getValue().slice(newUserIndex + 1),
-      ]
-      
+      ];
+
       return this.users$.next(newUsers);
     }
     return;
   }
 
   saveUser(newUser: UserInterface) {
-    const newUsers = this.users$.getValue().map((user) => user.id === newUser.id ? newUser : user)
+    const newUsers = this.users$
+      .getValue()
+      .map((user) => (user.id === newUser.id ? newUser : user));
     return this.users$.next(newUsers);
   }
 }

@@ -1,17 +1,17 @@
-import { Component, Input } from '@angular/core';
-import { UsersService } from 'src/app/users/services/users.service';
-import { UserInterface } from 'src/app/users/types/user.interface';
+import { Component, Input } from "@angular/core";
+import { UsersService } from "src/app/users/services/users.service";
+import { UserInterface } from "src/app/users/types/user.interface";
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  selector: "app-user",
+  templateUrl: "./user.component.html",
+  styleUrls: ["./user.component.scss"],
 })
 export class UserComponent {
-  @Input('user') userProps!: UserInterface;
-  name: string = '';
+  @Input("user") userProps!: UserInterface;
+  name: string = "";
 
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService) {}
 
   onUserChange(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -23,13 +23,13 @@ export class UserComponent {
     const updatedUser = {
       ...user,
       name: nameValue,
-      isEditing: false
-    }
+      isEditing: false,
+    };
     this.usersService.saveUser(updatedUser);
   }
 
   onEdit(id: string) {
-    this.usersService.editUserById(id)
+    this.usersService.editUserById(id);
   }
 
   onDelete(id: string) {

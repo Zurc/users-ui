@@ -1,11 +1,10 @@
-<section class="UserList" [ngClass]='{ hidden: noUsers$ | async }'>
+<section class="UserList" [ngClass]="{ hidden: noUsers$ | async }">
+  <div class="UserList__header">
+    <button class="btn btn--align-left" (click)="editAll()">Edit All</button>
+    <button class="btn" (click)="deleteAll()">Delete All</button>
+  </div>
 
-    <div class="UserList__header">
-        <button class='btn btn--align-left' (click)='editAll()'>Edit All</button>
-        <button class='btn' (click)='deleteAll()'>Delete All</button>
-    </div>
-
-    <ul class='UserList__list'>
-        <app-user *ngFor='let user of users$ | async' [user]='user'></app-user>
-    </ul>
+  <ul class="UserList__list">
+    <app-user *ngFor="let user of users$ | async" [user]="user"></app-user>
+  </ul>
 </section>
