@@ -1,15 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
-/** variables */
+@import "src/styles/variables";
+
 $control-height: 38px;
-
-$santander-red: rgb(236, 0, 0);
-$calm-blue: #3d70b2;
-
-$gray-13: #212121;
-$gray-34: #565656;
-$gray-87: #dddddd;
-$gray-97: #f7f7f7;
 
 body {
   max-width: 992px;
@@ -20,7 +13,7 @@ body {
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   font-size: 16px;
   background: $santander-red;
-  // background: linear-gradient(45deg, $santander-red, #4421f4);
+  background: linear-gradient(45deg, $santander-red, $vibrant-blue);
   color: rgb(25, 25, 25);
 }
 
@@ -52,31 +45,6 @@ ul {
   line-height: 20px;
   overflow: auto;
 }
-
-// .btn {
-//     box-sizing: border-box;
-//     height: $control-height;
-//     font-size: 16px;
-//     line-height: 18px;
-//     padding: 8px 12px;
-//     border: 1px solid $calm-blue;
-//     border-radius: 4px;
-//     cursor: pointer;
-//     display: inline-block;
-//     text-align: center;
-//     box-shadow: 0 0 0 1px $calm-blue;
-//     background: transparent;
-//     outline: none;
-//     align-self: flex-end;
-//     margin-left: 8px;
-
-//     &--align-left {
-//         &:first-child {
-//             margin-left: 0;
-//         }
-//     }
-
-// }
 
 %btn-base {
   align-self: flex-end;
@@ -110,7 +78,7 @@ ul {
   }
 
   &:focus {
-    box-shadow: 0 0 0 2px $calm-blue;
+    box-shadow: 0 0 0 2px $vibrant-blue;
     background: none;
     outline: none;
   }
@@ -124,8 +92,9 @@ ul {
   }
 }
 
-.outline:focus {
-  box-shadow: 0 0 0 1px $calm-blue;
+.outline:focus,
+.outline:focus-visible {
+  box-shadow: 0 0 0 1px $vibrant-blue;
   background: transparent;
   outline: none;
 }

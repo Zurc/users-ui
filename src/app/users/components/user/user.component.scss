@@ -1,8 +1,10 @@
+@import "src/styles/variables";
+
 .UserList {
   display: flex;
   justify-content: space-between;
   padding: 16px;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid $gray-87;
 
   &__right-col,
   &__left-col {
