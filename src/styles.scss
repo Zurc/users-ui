@@ -12,7 +12,8 @@ $gray-87: #dddddd;
 $gray-97: #f7f7f7;
 
 body {
-  margin: 0;
+  max-width: 992px;
+  margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
