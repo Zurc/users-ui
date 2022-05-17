@@ -1,6 +1,9 @@
 import { Component, Input } from "@angular/core";
+import { Store } from "@ngrx/store";
+
 import { UsersService } from "src/app/users/services/users.service";
 import { UserInterface } from "src/app/users/types/user.interface";
+import * as userActions from "src/app/users/store/users.actions";
 
 @Component({
   selector: "app-user",
@@ -11,7 +14,7 @@ export class UserComponent {
   @Input("user") userProps!: UserInterface;
   name: string = "";
 
-  constructor(private usersService: UsersService) {}
+  constructor(private usersService: UsersService, private store: Store) {}
 
   onUserChange(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -33,6 +36,7 @@ export class UserComponent {
   }
 
   onDelete(id: string) {
-    this.usersService.deleteUserById(id);
+    this.store.dispatch(userActions.deleteUser({ userId: id }));
+    // this.usersService.deleteUserById(id);
   }
 }

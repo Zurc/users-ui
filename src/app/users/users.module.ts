@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { StoreModule } from "@ngrx/store";
 
 import { UsersRoutingModule } from "./users-routing.module";
 import { UsersService } from "./services/users.service";
@@ -8,6 +9,9 @@ import { UsersComponent } from "./components/users/users.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { UserListComponent } from "./components/user-list/user-list.component";
 import { UserComponent } from "./components/user/user.component";
+import { reducers } from "src/app/users/store/users.reducer";
+import { EffectsModule } from "@ngrx/effects";
+import { UserEffects } from "./store/users.effects";
 
 @NgModule({
   declarations: [
@@ -16,7 +20,12 @@ import { UserComponent } from "./components/user/user.component";
     UserListComponent,
     UserComponent,
   ],
-  imports: [CommonModule, UsersRoutingModule],
+  imports: [
+    CommonModule,
+    UsersRoutingModule,
+    StoreModule.forFeature("users", reducers),
+    EffectsModule.forFeature([UserEffects]),
+  ],
   providers: [UsersService],
 })
 export class UsersModule {}

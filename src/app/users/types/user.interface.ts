@@ -3,3 +3,7 @@ export interface UserInterface {
   name: string;
   isEditing: boolean;
 }
+
+export interface UsersStateInterface {
+  list: UserInterface[];
+}
