@@ -10,9 +10,6 @@ import fakeUsers from "src/assets/mock-data";
   providedIn: "root",
 })
 export class UsersService {
-  // users$ = new BehaviorSubject<UserInterface[]>([]);
-  // filter$ = new BehaviorSubject<FilterEnum>(FilterEnum.editAll);
-  // stateUsers$ = new BehaviorSubject<UserInterface[]>([]);
   loadedUsers = fakeUsers.data;
 
   constructor(private store: Store, private http: HttpClient) {}

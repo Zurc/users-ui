@@ -17,7 +17,6 @@ import {
   styleUrls: ["./user-list.component.scss"],
 })
 export class UserListComponent implements OnInit {
-  // users$!: Observable<UserInterface[]>;
   noUsers$!: Observable<boolean>;
   usersLength: number = 0;
 
