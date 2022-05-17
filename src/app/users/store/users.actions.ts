@@ -1,6 +1,11 @@
 import { createAction, props } from "@ngrx/store";
-import { UserInterface } from "../types/user.interface";
-import { ActionTypes } from "./actionTypes";
+
+import { UserInterface } from "src/app/users/types/user.interface";
+import { ActionTypes } from "src/app/users/store/actionTypes";
+
+/**
+ * LOAD USERS
+ */
 
 export const loadUsers = createAction(ActionTypes.LOAD_USERS);
 
@@ -18,6 +23,10 @@ export const loadUsersFailure = createAction(
   }>()
 );
 
+/**
+ * ADD USER
+ */
+
 export const addUser = createAction(
   ActionTypes.ADD_USER,
   props<{ user: UserInterface }>()
@@ -25,13 +34,53 @@ export const addUser = createAction(
 
 export const addUserSuccess = createAction(
   ActionTypes.ADD_USER_SUCCESS,
-  props<{ list: UserInterface[] }>()
+  props<{
+    user: UserInterface;
+    list: UserInterface[];
+  }>()
 );
 
 export const addUserFailure = createAction(
   ActionTypes.ADD_USER_FAILURE,
   props<{ error: Error }>()
 );
+
+/**
+ * EDIT USER(S)
+ */
+
+export const editUser = createAction(
+  ActionTypes.EDIT_USER,
+  props<{ userId: string }>()
+);
+
+export const editUsers = createAction(ActionTypes.EDIT_USERS);
+
+/**
+ * UPDATE USER
+ */
+
+export const updateUser = createAction(
+  ActionTypes.UPDATE_USER,
+  props<{ user: UserInterface }>()
+);
+
+export const updateUserSuccess = createAction(
+  ActionTypes.UPDATE_USER_SUCCESS,
+  props<{
+    user: UserInterface;
+    list: UserInterface[];
+  }>()
+);
+
+export const updateUserFailure = createAction(
+  ActionTypes.UPDATE_USER_FAILURE,
+  props<{ error: Error }>()
+);
+
+/**
+ * DELETE USER(S)
+ */
 
 export const deleteUser = createAction(
   ActionTypes.DELETE_USER,
@@ -65,5 +114,3 @@ export const deleteUsersFailure = createAction(
     error: Error;
   }>()
 );
-
-export const editUsers = createAction(ActionTypes.EDIT_USERS);

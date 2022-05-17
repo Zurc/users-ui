@@ -1,7 +1,4 @@
-<section
-  class="UserList"
-  [ngClass]="{ hidden: (userList$ | async)?.length === 0 }"
->
+<section class="UserList" [ngClass]="{ hidden: noUsers$ | async }">
   <div class="UserList__header">
     <button class="btn btn--align-left" (click)="editAll()">Edit All</button>
     <button class="btn" (click)="deleteAll()">Delete All</button>

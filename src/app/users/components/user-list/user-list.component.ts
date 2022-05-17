@@ -1,10 +1,15 @@
 import { Component, OnInit } from "@angular/core";
 import { select, Store } from "@ngrx/store";
-import { map, Observable } from "rxjs";
+import { map, Observable, tap } from "rxjs";
 import { UsersService } from "src/app/users/services/users.service";
 import { UserInterface } from "src/app/users/types/user.interface";
 import { ActionTypes } from "../../store/actionTypes";
 import { getUsersListSelector } from "../../store/users.selectors";
+import {
+  loadUsers,
+  editUsers,
+  deleteUsers,
+} from "src/app/users/store/users.actions";
 
 @Component({
   selector: "app-user-list",
@@ -12,8 +17,9 @@ import { getUsersListSelector } from "../../store/users.selectors";
   styleUrls: ["./user-list.component.scss"],
 })
 export class UserListComponent implements OnInit {
-  users$!: Observable<UserInterface[]>;
+  // users$!: Observable<UserInterface[]>;
   noUsers$!: Observable<boolean>;
+  usersLength: number = 0;
 
   userList$: Observable<UserInterface[]> = this.store.pipe(
     select(getUsersListSelector)
@@ -22,22 +28,16 @@ export class UserListComponent implements OnInit {
   constructor(private usersService: UsersService, private store: Store) {}
 
   ngOnInit(): void {
-    // this.noUsers$! = this.usersService.users$.pipe(
-    //   map((users) => users.length === 0)
-    // );
-    // this.users$! = this.usersService.users$;
-    // this.usersService.getAll();
+    this.noUsers$ = this.userList$.pipe(map((users) => users.length === 0));
 
-    this.store.dispatch({ type: ActionTypes.LOAD_USERS });
+    this.store.dispatch(loadUsers());
   }
 
   editAll(): void {
-    this.usersService.editAll();
+    this.store.dispatch(editUsers());
   }
 
   deleteAll(): void {
-    // this.usersService.deleteAll();
-
-    this.store.dispatch({ type: ActionTypes.DELETE_USERS });
+    this.store.dispatch(deleteUsers());
   }
 }

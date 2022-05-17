@@ -16,6 +16,10 @@ const initialState: State = {
 const usersReducer = createReducer(
   initialState,
 
+  /**
+   * LOAD USERS
+   */
+
   on(
     userActions.loadUsers,
     (state): State => ({
@@ -41,11 +45,14 @@ const usersReducer = createReducer(
     })
   ),
 
+  /**
+   * ADD USER
+   */
+
   on(
     userActions.addUser,
     (state, props): State => ({
       ...state,
-      list: [...state.list, props.user],
       loading: true,
     })
   ),
@@ -54,7 +61,7 @@ const usersReducer = createReducer(
     userActions.addUserSuccess,
     (state, props): State => ({
       ...state,
-      list: props.list,
+      list: [...state.list, props.user],
       loading: false,
     })
   ),
@@ -68,6 +75,25 @@ const usersReducer = createReducer(
     })
   ),
 
+  /**
+   * EDIT USER(S)
+   */
+
+  on(userActions.editUser, (state, props): State => {
+    const newList = [...state.list].map((user) =>
+      user.id === props.userId
+        ? {
+            ...user,
+            isEditing: true,
+          }
+        : user
+    );
+    return {
+      ...state,
+      list: newList,
+    };
+  }),
+
   on(userActions.editUsers, (state): State => {
     const newList = [...state.list].map((user) => ({
       ...user,
@@ -78,6 +104,48 @@ const usersReducer = createReducer(
       list: newList,
     };
   }),
+
+  /**
+   * UPDATE USER
+   */
+
+  on(
+    userActions.updateUser,
+    (state, props): State => ({
+      ...state,
+      loading: true,
+    })
+  ),
+
+  on(userActions.updateUserSuccess, (state, props): State => {
+    const newList = [...state.list].map((user) =>
+      user.id === props.user.id
+        ? {
+            ...user,
+            name: props.user.name,
+            isEditing: false,
+          }
+        : user
+    );
+    return {
+      ...state,
+      list: newList,
+      loading: false,
+    };
+  }),
+
+  on(
+    userActions.updateUserFailure,
+    (state, props): State => ({
+      ...state,
+      loading: false,
+      error: props.error,
+    })
+  ),
+
+  /**
+   * DELETE USERS(S)
+   */
 
   on(
     userActions.deleteUser,

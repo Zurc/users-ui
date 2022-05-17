@@ -1,10 +1,12 @@
 import { Component, Input } from "@angular/core";
 import { Store } from "@ngrx/store";
 
-import { UsersService } from "src/app/users/services/users.service";
 import { UserInterface } from "src/app/users/types/user.interface";
-import * as userActions from "src/app/users/store/users.actions";
-
+import {
+  editUser,
+  deleteUser,
+  updateUser,
+} from "src/app/users/store/users.actions";
 @Component({
   selector: "app-user",
   templateUrl: "./user.component.html",
@@ -14,7 +16,7 @@ export class UserComponent {
   @Input("user") userProps!: UserInterface;
   name: string = "";
 
-  constructor(private usersService: UsersService, private store: Store) {}
+  constructor(private store: Store) {}
 
   onUserChange(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -28,15 +30,15 @@ export class UserComponent {
       name: nameValue,
       isEditing: false,
     };
-    this.usersService.saveUser(updatedUser);
+
+    this.store.dispatch(updateUser({ user: updatedUser }));
   }
 
   onEdit(id: string) {
-    this.usersService.editUserById(id);
+    this.store.dispatch(editUser({ userId: id }));
   }
 
   onDelete(id: string) {
-    this.store.dispatch(userActions.deleteUser({ userId: id }));
-    // this.usersService.deleteUserById(id);
+    this.store.dispatch(deleteUser({ userId: id }));
   }
 }
