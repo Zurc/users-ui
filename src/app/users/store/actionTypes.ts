@@ -11,4 +11,5 @@ export enum ActionTypes {
   DELETE_USERS = "[Users] Delete Users",
   DELETE_USERS_SUCCESS = "[Users] Delete Users Success",
   DELETE_USERS_FAILURE = "[Users] Delete Users Failure",
+  EDIT_USERS = "[Users] Edit Users",
 }

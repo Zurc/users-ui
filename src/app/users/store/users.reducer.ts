@@ -68,6 +68,17 @@ const usersReducer = createReducer(
     })
   ),
 
+  on(userActions.editUsers, (state): State => {
+    const newList = [...state.list].map((user) => ({
+      ...user,
+      isEditing: true,
+    }));
+    return {
+      ...state,
+      list: newList,
+    };
+  }),
+
   on(
     userActions.deleteUser,
     (state, props): State => ({

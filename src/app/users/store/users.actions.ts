@@ -65,3 +65,5 @@ export const deleteUsersFailure = createAction(
     error: Error;
   }>()
 );
+
+export const editUsers = createAction(ActionTypes.EDIT_USERS);

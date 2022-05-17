@@ -38,6 +38,7 @@ export class UsersService {
   }
 
   editAll() {
+    this.store.dispatch(userActions.editUsers());
     // const editedUsers = this.users$.getValue().map((user) => {
     //   return {
     //     ...user,
@@ -49,23 +50,17 @@ export class UsersService {
   }
 
   deleteAll() {
-    // this.users$.next([]);
     return of([]);
   }
 
   deleteUserById(id: string) {
-    // console.log("delete from this users from db", this.loadedUsers);
     const userIndex = [...this.loadedUsers].findIndex((user) => user.id === id);
 
     const fakeDeletion = [
       ...this.loadedUsers.slice(0, userIndex),
       ...this.loadedUsers.slice(userIndex + 1),
     ];
-    console.log("fake Deletion from service", fakeDeletion);
     return of(fakeDeletion);
-    // return of([]);
-    // const newUsers = this.users$.getValue().filter((user) => user.id !== id);
-    // this.users$.next(newUsers);
   }
 
   editUserById(id: string) {
