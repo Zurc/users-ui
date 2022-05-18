@@ -10,10 +10,6 @@ import { UserInterface } from "src/app/users/types/user.interface";
 
 @Injectable()
 export class UserEffects {
-  /**
-   * LOAD USERS
-   */
-
   loadUsers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ActionTypes.LOAD_USERS),
@@ -29,10 +25,6 @@ export class UserEffects {
       )
     )
   );
-
-  /**
-   * ADD USER
-   */
 
   addUser$ = createEffect(() =>
     this.actions$.pipe(
@@ -50,10 +42,6 @@ export class UserEffects {
     )
   );
 
-  /**
-   * UPDATE USER
-   */
-
   updateUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ActionTypes.UPDATE_USER),
@@ -69,10 +57,6 @@ export class UserEffects {
       )
     )
   );
-
-  /**
-   * DELETE USER(S)
-   */
 
   deleteUser$ = createEffect(() =>
     this.actions$.pipe(
