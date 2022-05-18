@@ -41,12 +41,7 @@ export class UsersService {
   }
 
   deleteUserById(id: string) {
-    const userIndex = [...this.loadedUsers].findIndex((user) => user.id === id);
-
-    const fakeDeletion = [
-      ...this.loadedUsers.slice(0, userIndex),
-      ...this.loadedUsers.slice(userIndex + 1),
-    ];
-    return of(fakeDeletion);
+    const newList = [...this.loadedUsers].filter((user) => user.id !== id);
+    return of(newList);
   }
 }
