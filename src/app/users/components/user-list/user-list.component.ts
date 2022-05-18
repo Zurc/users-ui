@@ -1,9 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { select, Store } from "@ngrx/store";
 import { map, Observable, tap } from "rxjs";
-import { UsersService } from "src/app/users/services/users.service";
 import { UserInterface } from "src/app/users/types/user.interface";
-import { ActionTypes } from "../../store/actionTypes";
 import { getUsersListSelector } from "../../store/users.selectors";
 import {
   loadUsers,
@@ -24,7 +22,7 @@ export class UserListComponent implements OnInit {
     select(getUsersListSelector)
   );
 
-  constructor(private usersService: UsersService, private store: Store) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.noUsers$ = this.userList$.pipe(map((users) => users.length === 0));

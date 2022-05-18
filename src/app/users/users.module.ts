@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { StoreModule } from "@ngrx/store";
+import { Store, StoreModule } from "@ngrx/store";
 
 import { UsersRoutingModule } from "./users-routing.module";
 import { UsersService } from "./services/users.service";
@@ -26,6 +26,6 @@ import { UserEffects } from "./store/users.effects";
     StoreModule.forFeature("users", reducers),
     EffectsModule.forFeature([UserEffects]),
   ],
-  providers: [UsersService],
+  providers: [UsersService, Store],
 })
 export class UsersModule {}
