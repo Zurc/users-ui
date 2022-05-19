@@ -1,7 +1,13 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { map, switchMap, catchError } from "rxjs/operators";
+import {
+  map,
+  switchMap,
+  catchError,
+  mergeMap,
+  exhaustMap,
+} from "rxjs/operators";
 
 import { UsersService } from "src/app/users/services/users.service";
 import { ActionTypes } from "src/app/users/store/actionTypes";
@@ -12,17 +18,12 @@ import { UserInterface } from "src/app/users/types/user.interface";
 export class UserEffects {
   loadUsers$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ActionTypes.LOAD_USERS),
-      switchMap(() =>
-        this.usersService.getAll().pipe(
-          map((users: UserInterface[]) =>
-            userActions.loadUsersSuccess({ list: users })
-          ),
-          catchError((error: Error) =>
-            of(userActions.loadUsersFailure({ error }))
-          )
-        )
-      )
+      ofType(userActions.loadUsers),
+      exhaustMap(() => this.usersService.getAll()),
+      map((users: UserInterface[]) =>
+        userActions.loadUsersSuccess({ list: users })
+      ),
+      catchError((error: Error) => of(userActions.loadUsersFailure({ error })))
     )
   );
 
