@@ -29,11 +29,11 @@ export class UserEffects {
 
   addUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ActionTypes.ADD_USER),
+      ofType(userActions.addUser),
       switchMap(({ user }) =>
         this.usersService.addUser(user).pipe(
           map((users: UserInterface[]) =>
-            userActions.addUserSuccess({ user, list: users })
+            userActions.addUserSuccess({ list: users })
           ),
           catchError((error: Error) =>
             of(userActions.addUserFailure({ error }))

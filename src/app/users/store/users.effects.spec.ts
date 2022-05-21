@@ -3,14 +3,16 @@ import { mockProvider, SpyObject } from "@ngneat/spectator/jest";
 import { provideMockActions } from "@ngrx/effects/testing";
 import { cold, hot } from "jasmine-marbles";
 import { Actions } from "@ngrx/effects";
-import { Observable, throwError } from "rxjs";
+import { Observable, of, throwError } from "rxjs";
 
 import { UsersService } from "../services/users.service";
 import { UserInterface } from "../types/user.interface";
 import { UserEffects } from "./users.effects";
 import * as userActions from "src/app/users/store/users.actions";
+import { type } from "os";
+import { ActionTypes } from "./actionTypes";
 
-describe("usersService.getAll is successful", () => {
+describe("usersEffects", () => {
   let actions$: Observable<Actions>;
   let effects: UserEffects;
   let usersStub: SpyObject<UsersService>;
@@ -61,6 +63,57 @@ describe("usersService.getAll is successful", () => {
 
       expect(effects.loadUsers$).toBeObservable(expected);
       expect(usersStub.getAll).toHaveBeenCalled();
+    });
+  });
+
+  describe("addUsers$", () => {
+    it("should return userActions.addUserSuccess on success", () => {
+      const userList: UserInterface[] = [
+        {} as UserInterface,
+        {} as UserInterface,
+      ];
+      const newUser = {} as UserInterface;
+
+      const actions = new Actions(
+        hot("-a", {
+          a: {
+            type: ActionTypes.ADD_USER,
+            user: newUser,
+          },
+        })
+      );
+
+      usersStub.addUser.andReturn(of([...userList, newUser]));
+
+      effects.addUser$.subscribe((action) => {
+        expect(action).toEqual({
+          type: ActionTypes.ADD_USER_SUCCESS,
+          users: [...userList, newUser],
+        });
+      });
+    });
+
+    it("should return userActions.addUserFailure on failure", () => {
+      const newUser = {} as UserInterface;
+      const error = {} as Error;
+
+      const actions = new Actions(
+        hot("-a", {
+          a: {
+            type: ActionTypes.ADD_USER,
+            user: newUser,
+          },
+        })
+      );
+
+      usersStub.addUser.andReturn(of({ error }));
+
+      effects.addUser$.subscribe((action) => {
+        expect(action).toEqual({
+          type: ActionTypes.ADD_USER_FAILURE,
+          error: { error },
+        });
+      });
     });
   });
 });

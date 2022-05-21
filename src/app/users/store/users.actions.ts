@@ -35,7 +35,6 @@ export const addUser = createAction(
 export const addUserSuccess = createAction(
   ActionTypes.ADD_USER_SUCCESS,
   props<{
-    user: UserInterface;
     list: UserInterface[];
   }>()
 );

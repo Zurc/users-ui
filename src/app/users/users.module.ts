@@ -9,7 +9,7 @@ import { UsersComponent } from "./components/users/users.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { UserListComponent } from "./components/user-list/user-list.component";
 import { UserComponent } from "./components/user/user.component";
-import { reducers } from "src/app/users/store/users.reducer";
+import { reducer } from "src/app/users/store/users.reducer";
 import { EffectsModule } from "@ngrx/effects";
 import { UserEffects } from "./store/users.effects";
 
@@ -23,7 +23,7 @@ import { UserEffects } from "./store/users.effects";
   imports: [
     CommonModule,
     UsersRoutingModule,
-    StoreModule.forFeature("users", reducers),
+    StoreModule.forFeature("users", reducer),
     EffectsModule.forFeature([UserEffects]),
   ],
   providers: [UsersService, Store],

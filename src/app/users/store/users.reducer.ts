@@ -3,12 +3,12 @@ import { UsersStateInterface } from "src/app/users/types/user.interface";
 
 import * as userActions from "src/app/users/store/users.actions";
 
-export interface State extends UsersStateInterface {
+export interface UsersState extends UsersStateInterface {
   loading: boolean;
-  error?: Error | any;
+  error?: Error | null;
 }
 
-const initialState: State = {
+export const initialState: UsersState = {
   list: [],
   loading: false,
 };
@@ -22,7 +22,7 @@ const usersReducer = createReducer(
 
   on(
     userActions.loadUsers,
-    (state): State => ({
+    (state): UsersState => ({
       ...state,
       loading: true,
     })
@@ -30,7 +30,7 @@ const usersReducer = createReducer(
 
   on(
     userActions.loadUsersSuccess,
-    (state, props): State => ({
+    (state, props): UsersState => ({
       ...state,
       list: props.list,
       loading: false,
@@ -39,7 +39,7 @@ const usersReducer = createReducer(
 
   on(
     userActions.loadUsersFailure,
-    (state): State => ({
+    (state): UsersState => ({
       ...state,
       loading: false,
     })
@@ -51,7 +51,7 @@ const usersReducer = createReducer(
 
   on(
     userActions.addUser,
-    (state, props): State => ({
+    (state, props): UsersState => ({
       ...state,
       loading: true,
     })
@@ -59,16 +59,16 @@ const usersReducer = createReducer(
 
   on(
     userActions.addUserSuccess,
-    (state, props): State => ({
+    (state, props): UsersState => ({
       ...state,
-      list: [...state.list, props.user],
+      list: [...props.list],
       loading: false,
     })
   ),
 
   on(
     userActions.addUserFailure,
-    (state, props): State => ({
+    (state, props): UsersState => ({
       ...state,
       loading: false,
       error: props.error,
@@ -79,7 +79,7 @@ const usersReducer = createReducer(
    * EDIT USER(S)
    */
 
-  on(userActions.editUser, (state, props): State => {
+  on(userActions.editUser, (state, props): UsersState => {
     const newList = [...state.list].map((user) =>
       user.id === props.userId
         ? {
@@ -94,7 +94,7 @@ const usersReducer = createReducer(
     };
   }),
 
-  on(userActions.editUsers, (state): State => {
+  on(userActions.editUsers, (state): UsersState => {
     const newList = [...state.list].map((user) => ({
       ...user,
       isEditing: true,
@@ -111,13 +111,13 @@ const usersReducer = createReducer(
 
   on(
     userActions.updateUser,
-    (state, props): State => ({
+    (state, props): UsersState => ({
       ...state,
       loading: true,
     })
   ),
 
-  on(userActions.updateUserSuccess, (state, props): State => {
+  on(userActions.updateUserSuccess, (state, props): UsersState => {
     const newList = [...state.list].map((user) =>
       user.id === props.user.id
         ? {
@@ -136,7 +136,7 @@ const usersReducer = createReducer(
 
   on(
     userActions.updateUserFailure,
-    (state, props): State => ({
+    (state, props): UsersState => ({
       ...state,
       loading: false,
       error: props.error,
@@ -149,13 +149,13 @@ const usersReducer = createReducer(
 
   on(
     userActions.deleteUser,
-    (state, props): State => ({
+    (state, props): UsersState => ({
       ...state,
       loading: true,
     })
   ),
 
-  on(userActions.deleteUserSuccess, (state, props): State => {
+  on(userActions.deleteUserSuccess, (state, props): UsersState => {
     const index = [...state.list].findIndex((user) => user.id === props.userId);
     const newList = [
       ...state.list.slice(0, index),
@@ -170,7 +170,7 @@ const usersReducer = createReducer(
 
   on(
     userActions.deleteUserFailure,
-    (state, props): State => ({
+    (state, props): UsersState => ({
       ...state,
       loading: false,
       error: props.error,
@@ -179,7 +179,7 @@ const usersReducer = createReducer(
 
   on(
     userActions.deleteUsers,
-    (state): State => ({
+    (state): UsersState => ({
       ...state,
       loading: true,
     })
@@ -187,7 +187,7 @@ const usersReducer = createReducer(
 
   on(
     userActions.deleteUsersSuccess,
-    (state): State => ({
+    (state): UsersState => ({
       ...state,
       list: [],
       loading: false,
@@ -196,7 +196,7 @@ const usersReducer = createReducer(
 
   on(
     userActions.deleteUsersFailure,
-    (state, props): State => ({
+    (state, props): UsersState => ({
       ...state,
       loading: false,
       error: props.error,
@@ -204,6 +204,6 @@ const usersReducer = createReducer(
   )
 );
 
-export function reducers(state: State, action: Action) {
+export function reducer(state: UsersState, action: Action) {
   return usersReducer(state, action);
 }
