@@ -85,7 +85,6 @@ export const deleteUserSuccess = createAction(
   ActionTypes.DELETE_USER_SUCCESS,
   props<{
     userId: string;
-    // list: UserInterface[];
   }>()
 );
 

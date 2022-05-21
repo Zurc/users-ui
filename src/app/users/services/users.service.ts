@@ -26,7 +26,7 @@ export class UsersService {
     return of(updatedUser);
   }
 
-  deleteAll() {
+  deleteUsers() {
     return of([]);
   }
 

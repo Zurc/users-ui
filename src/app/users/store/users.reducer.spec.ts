@@ -127,6 +127,43 @@ describe("Users reducers", () => {
     });
   });
 
+  describe("editing users", () => {
+    describe("editUser", () => {
+      it("should set isEditing flag to true for that user", () => {
+        const initialUser = { id: "a", name: "Coco", isEditing: false };
+        const initialState: UsersState = {
+          list: [initialUser],
+          loading: true,
+        };
+        const action = userActions.editUser({ userId: initialUser.id });
+
+        const result = usersReducer.reducer(initialState, action);
+
+        expect(result.list.find((u) => u.id === "a")?.isEditing).toBe(true);
+      });
+    });
+
+    describe("editUsers", () => {
+      it("should set isEditing flag to true for all user", () => {
+        const initialList = [
+          { id: "a", name: "Coco", isEditing: false },
+          { id: "b", name: "John", isEditing: false },
+        ];
+        const initialState: UsersState = {
+          list: [...initialList],
+          loading: true,
+        };
+        const action = userActions.editUsers();
+
+        const result = usersReducer.reducer(initialState, action);
+
+        expect(result.list.filter((u) => u.isEditing).length).toEqual(
+          initialState.list.length
+        );
+      });
+    });
+  });
+
   describe("updating Users", () => {
     describe("updateUser", () => {
       it("should set the loading flag to true", () => {
@@ -196,6 +233,112 @@ describe("Users reducers", () => {
         const result = usersReducer.reducer(initialState, action);
 
         expect(result.list).toEqual(initialState.list);
+      });
+    });
+  });
+
+  describe("deleting Users", () => {
+    describe("delete Individual User", () => {
+      describe("deleteUser", () => {
+        it("should set the loading flag to true", () => {
+          const userId = "a";
+          const action = userActions.deleteUser({ userId });
+
+          const result = usersReducer.reducer(loadedUsersState, action);
+
+          expect(result.loading).toEqual(true);
+        });
+      });
+      describe("deleteUserSuccess", () => {
+        it("user should be deleted from the list", () => {
+          const initialUser = { id: "a", name: "Coco", isEditing: true };
+          const initialState: UsersState = {
+            list: [initialUser],
+            loading: true,
+          };
+          const action = userActions.deleteUserSuccess({
+            userId: initialUser.id,
+          });
+
+          const result = usersReducer.reducer(initialState, action);
+
+          expect(result.list.find((u) => u.id === "a")).toBe(undefined);
+        });
+      });
+      describe("deleteUserFailure", () => {
+        const initialState: UsersState = {
+          list: [{ id: "a", name: "Coco", isEditing: true }],
+          loading: true,
+        };
+
+        it("should reset the loading flag to false", () => {
+          const error = {} as Error;
+          const action = userActions.deleteUserFailure({ error });
+
+          const result = usersReducer.reducer(initialState, action);
+
+          expect(result.loading).toEqual(false);
+        });
+
+        it("should return previous list", () => {
+          const error = {} as Error;
+          const action = userActions.deleteUserFailure({ error });
+
+          const result = usersReducer.reducer(initialState, action);
+
+          expect(result.list).toEqual(initialState.list);
+        });
+      });
+    });
+
+    describe("delete All Users", () => {
+      describe("deleteUsers", () => {
+        it("should set the loading flag to true", () => {
+          const userId = "a";
+          const action = userActions.deleteUsers();
+
+          const result = usersReducer.reducer(loadedUsersState, action);
+
+          expect(result.loading).toEqual(true);
+        });
+      });
+      describe("deleteUsersSuccess", () => {
+        it("user list should be empty", () => {
+          const initialUser = { id: "a", name: "Coco", isEditing: true };
+          const initialState: UsersState = {
+            list: [initialUser],
+            loading: true,
+          };
+          const action = userActions.deleteUsersSuccess();
+
+          const result = usersReducer.reducer(initialState, action);
+
+          expect(result.list.length).toBe(0);
+        });
+      });
+      describe("deleteUsersFailure", () => {
+        const initialState: UsersState = {
+          list: [{ id: "a", name: "Coco", isEditing: true }],
+          loading: true,
+        };
+
+        it("should reset the loading flag to false", () => {
+          const error = {} as Error;
+          const action = userActions.deleteUsersFailure({ error });
+
+          const result = usersReducer.reducer(initialState, action);
+
+          expect(result.loading).toEqual(false);
+        });
+
+        it("should return previous list", () => {
+          const error = {} as Error;
+          const action = userActions.deleteUsersFailure({ error });
+
+          const result = usersReducer.reducer(initialState, action);
+
+          expect(result.list).toEqual(initialState.list);
+        });
       });
     });
   });

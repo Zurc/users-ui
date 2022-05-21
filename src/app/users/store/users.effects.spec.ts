@@ -168,7 +168,7 @@ describe("usersEffects", () => {
     });
   });
 
-  describe("deleteUsers$", () => {
+  describe("deleteUser$", () => {
     it("should return userActions.deleteUserSuccess on success", () => {
       const userId = 1;
 
@@ -200,6 +200,50 @@ describe("usersEffects", () => {
           a: {
             type: ActionTypes.DELETE_USER,
             userId,
+          },
+        })
+      );
+
+      usersStub.deleteUser.andReturn(of({ error }));
+
+      effects.deleteUser$.subscribe((action) => {
+        expect(action).toEqual({
+          type: ActionTypes.DELETE_USER_FAILURE,
+          error: { error },
+        });
+      });
+    });
+  });
+
+  describe("deleteUsers$", () => {
+    it("should return userActions.deleteUsersSuccess on success", () => {
+      const userId = 1;
+
+      const actions = new Actions(
+        hot("-a", {
+          a: {
+            type: ActionTypes.DELETE_USERS,
+          },
+        })
+      );
+
+      usersStub.deleteUsers.andReturn(of());
+
+      effects.deleteUser$.subscribe((action) => {
+        expect(action).toEqual({
+          type: ActionTypes.DELETE_USERS_SUCCESS,
+        });
+      });
+    });
+
+    it("should return userActions.deleteUserFailure on failure", () => {
+      const userId = 1;
+      const error = {} as Error;
+
+      const actions = new Actions(
+        hot("-a", {
+          a: {
+            type: ActionTypes.DELETE_USERS,
           },
         })
       );
