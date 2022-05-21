@@ -111,7 +111,7 @@ const usersReducer = createReducer(
 
   on(
     userActions.updateUser,
-    (state, props): UsersState => ({
+    (state): UsersState => ({
       ...state,
       loading: true,
     })
