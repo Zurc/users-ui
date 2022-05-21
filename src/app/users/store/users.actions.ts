@@ -34,9 +34,7 @@ export const addUser = createAction(
 
 export const addUserSuccess = createAction(
   ActionTypes.ADD_USER_SUCCESS,
-  props<{
-    list: UserInterface[];
-  }>()
+  props<{ user: UserInterface }>()
 );
 
 export const addUserFailure = createAction(
@@ -66,10 +64,7 @@ export const updateUser = createAction(
 
 export const updateUserSuccess = createAction(
   ActionTypes.UPDATE_USER_SUCCESS,
-  props<{
-    user: UserInterface;
-    list: UserInterface[];
-  }>()
+  props<{ user: UserInterface }>()
 );
 
 export const updateUserFailure = createAction(
@@ -90,7 +85,7 @@ export const deleteUserSuccess = createAction(
   ActionTypes.DELETE_USER_SUCCESS,
   props<{
     userId: string;
-    list: UserInterface[];
+    // list: UserInterface[];
   }>()
 );
 

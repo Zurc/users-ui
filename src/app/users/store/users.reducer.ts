@@ -51,7 +51,7 @@ const usersReducer = createReducer(
 
   on(
     userActions.addUser,
-    (state, props): UsersState => ({
+    (state): UsersState => ({
       ...state,
       loading: true,
     })
@@ -61,7 +61,7 @@ const usersReducer = createReducer(
     userActions.addUserSuccess,
     (state, props): UsersState => ({
       ...state,
-      list: [...props.list],
+      list: [...state.list, props.user],
       loading: false,
     })
   ),
@@ -149,7 +149,7 @@ const usersReducer = createReducer(
 
   on(
     userActions.deleteUser,
-    (state, props): UsersState => ({
+    (state): UsersState => ({
       ...state,
       loading: true,
     })

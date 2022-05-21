@@ -19,29 +19,18 @@ export class UsersService {
   }
 
   addUser(user: UserInterface) {
-    const newList = [...this.loadedUsers, user];
-    return of(newList);
+    return of(user);
   }
 
-  updateUser(user: UserInterface) {
-    const updatedList = [...this.loadedUsers].map((user) =>
-      user.id === user.id
-        ? {
-            ...user,
-            name: user.name,
-            isEditing: false,
-          }
-        : user
-    );
-    return of(updatedList);
+  updateUser(updatedUser: UserInterface) {
+    return of(updatedUser);
   }
 
   deleteAll() {
     return of([]);
   }
 
-  deleteUserById(id: string) {
-    const newList = [...this.loadedUsers].filter((user) => user.id !== id);
-    return of(newList);
+  deleteUser(id: string) {
+    return of(id);
   }
 }

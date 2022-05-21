@@ -32,9 +32,7 @@ export class UserEffects {
       ofType(userActions.addUser),
       switchMap(({ user }) =>
         this.usersService.addUser(user).pipe(
-          map((users: UserInterface[]) =>
-            userActions.addUserSuccess({ list: users })
-          ),
+          map((user: UserInterface) => userActions.addUserSuccess({ user })),
           catchError((error: Error) =>
             of(userActions.addUserFailure({ error }))
           )
@@ -48,8 +46,8 @@ export class UserEffects {
       ofType(ActionTypes.UPDATE_USER),
       switchMap(({ user }) =>
         this.usersService.updateUser(user).pipe(
-          map((users: UserInterface[]) =>
-            userActions.updateUserSuccess({ user, list: users })
+          map((updatedUser: UserInterface) =>
+            userActions.updateUserSuccess({ user: updatedUser })
           ),
           catchError((error: Error) =>
             of(userActions.updateUserFailure({ error }))
@@ -63,10 +61,8 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(ActionTypes.DELETE_USER),
       switchMap(({ userId }) =>
-        this.usersService.deleteUserById(userId).pipe(
-          map((users: UserInterface[]) =>
-            userActions.deleteUserSuccess({ userId, list: users })
-          ),
+        this.usersService.deleteUser(userId).pipe(
+          map((userId: string) => userActions.deleteUserSuccess({ userId })),
           catchError((error: Error) =>
             of(userActions.deleteUserFailure({ error }))
           )

@@ -83,12 +83,12 @@ describe("usersEffects", () => {
         })
       );
 
-      usersStub.addUser.andReturn(of([...userList, newUser]));
+      usersStub.addUser.andReturn(of(newUser));
 
       effects.addUser$.subscribe((action) => {
         expect(action).toEqual({
           type: ActionTypes.ADD_USER_SUCCESS,
-          users: [...userList, newUser],
+          user: newUser,
         });
       });
     });
@@ -111,6 +111,104 @@ describe("usersEffects", () => {
       effects.addUser$.subscribe((action) => {
         expect(action).toEqual({
           type: ActionTypes.ADD_USER_FAILURE,
+          error: { error },
+        });
+      });
+    });
+  });
+
+  describe("updateUsers$", () => {
+    it("should return userActions.updateUserSuccess on success", () => {
+      const userList: UserInterface[] = [
+        {} as UserInterface,
+        {} as UserInterface,
+      ];
+      const newUser = {} as UserInterface;
+
+      const actions = new Actions(
+        hot("-a", {
+          a: {
+            type: ActionTypes.UPDATE_USER,
+            user: newUser,
+          },
+        })
+      );
+
+      usersStub.updateUser.andReturn(of([...userList, newUser]));
+
+      effects.updateUser$.subscribe((action) => {
+        expect(action).toEqual({
+          type: ActionTypes.UPDATE_USER_SUCCESS,
+          users: [...userList, newUser],
+        });
+      });
+    });
+
+    it("should return userActions.updateUserFailure on failure", () => {
+      const newUser = {} as UserInterface;
+      const error = {} as Error;
+
+      const actions = new Actions(
+        hot("-a", {
+          a: {
+            type: ActionTypes.UPDATE_USER,
+            user: newUser,
+          },
+        })
+      );
+
+      usersStub.updateUser.andReturn(of({ error }));
+
+      effects.updateUser$.subscribe((action) => {
+        expect(action).toEqual({
+          type: ActionTypes.UPDATE_USER_FAILURE,
+          error: { error },
+        });
+      });
+    });
+  });
+
+  describe("deleteUsers$", () => {
+    it("should return userActions.deleteUserSuccess on success", () => {
+      const userId = 1;
+
+      const actions = new Actions(
+        hot("-a", {
+          a: {
+            type: ActionTypes.DELETE_USER,
+            userId,
+          },
+        })
+      );
+
+      usersStub.deleteUser.andReturn(of(userId));
+
+      effects.deleteUser$.subscribe((action) => {
+        expect(action).toEqual({
+          type: ActionTypes.DELETE_USER_SUCCESS,
+          userId,
+        });
+      });
+    });
+
+    it("should return userActions.deleteUserFailure on failure", () => {
+      const userId = 1;
+      const error = {} as Error;
+
+      const actions = new Actions(
+        hot("-a", {
+          a: {
+            type: ActionTypes.DELETE_USER,
+            userId,
+          },
+        })
+      );
+
+      usersStub.deleteUser.andReturn(of({ error }));
+
+      effects.deleteUser$.subscribe((action) => {
+        expect(action).toEqual({
+          type: ActionTypes.DELETE_USER_FAILURE,
           error: { error },
         });
       });
