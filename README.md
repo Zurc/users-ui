@@ -2,7 +2,7 @@
 
 Angular CLI version 13.3.5.
 
-<img src="https://zurc.github.io/users-ui/src/assets/images/users-ui.png" width=50% heigh=50% alt="users-ui">
+<img src="https://zurc.github.io/users-ui/blob/main/src/assets/images/users-ui.png" width=50% heigh=50% alt="users-ui">
 
 ## Development server
 
