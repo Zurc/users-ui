@@ -22,6 +22,8 @@ Create a single page angular app which manages a list of usernames, using NGRX. 
 or shrink as the browser window height is changed. Other than that, you have freedom to style rest of the
 page.
 
+<img src="https://github.com/Zurc/users-ui/blob/main/src/assets/images/users-ui_mock.png" width=50% heigh=50% alt="users-ui mock">
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
