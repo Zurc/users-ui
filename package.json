@@ -34,6 +34,7 @@
     "@ngneat/spectator": "^10.0.1",
     "@types/jest": "^27.5.1",
     "@types/node": "^12.11.1",
+    "gh-pages": "^4.0.0",
     "jasmine-marbles": "^0.9.2",
     "jest": "^28.1.0",
     "jest-preset-angular": "^12.0.1",
