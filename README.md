@@ -1,6 +1,8 @@
 # UsersUi
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.5.
+Angular CLI version 13.3.5.
+
+<img src="https://zurc.github.io/users-ui/src/assets/images/users-ui.png" width=50% heigh=50% alt="users-ui">
 
 ## Development server
 
