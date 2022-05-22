@@ -1,12 +1,26 @@
 # UsersUi
 
-Angular CLI version 13.3.5.
-
 <img src="https://github.com/Zurc/users-ui/blob/main/src/assets/images/users-ui.png" width=50% heigh=50% alt="users-ui">
 
-## Development server
+## Requirements
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Create a single page angular app which manages a list of usernames, using NGRX. Below it the UX mock up screen and requirement specifications for this page. Do unit test for at least NGRX selectors, reducers, and effects. There is no time limit, but please do your best and submit the test as quick as you can.
+
+- On page load, fetch mock data, which is a list of usernames, from an angular service method.
+- 
+- Then store the data in memory on client side and use in-memory data to implement following features.
+
+- Create a grid, listing usernames as the UX screen shown below.
+- 
+- This page will enable user to edit and delete names.
+- 
+- User should be able to delete or edit all names in one go using “Delete All” and “Edit All” buttons.
+- 
+- User also should be able to add new user.
+- 
+- As for page styling, header and footer need to have 100px height and the middle content area should grow
+or shrink as the browser window height is changed. Other than that, you have freedom to style rest of the
+page.
 
 ## Code scaffolding
 
