@@ -35,7 +35,7 @@ Run the project: `ng serve`
 
 ## NGRX - Redux DevTools
 
-If you have [Redux DevTools](https://github.com/reduxjs/redux-devtools) you'll be able to see how state changes
+If you have [Redux DevTools](https://github.com/reduxjs/redux-devtools) you'll be able to see how the state of the app changes.
 
 ## Running unit tests
 
