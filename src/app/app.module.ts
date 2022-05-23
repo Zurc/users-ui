@@ -8,7 +8,6 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "src/environments/environment";
 
 import { AppRoutingModule } from "src/app/app-routing.module";
-import { SharedModule } from "src/app/shared/shared.module";
 import { AppComponent } from "src/app/app.component";
 
 @NgModule({
@@ -23,7 +22,6 @@ import { AppComponent } from "src/app/app.component";
       logOnly: environment.production,
     }),
     EffectsModule.forRoot(),
-    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
